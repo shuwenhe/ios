@@ -72,5 +72,32 @@
     // to restore the scene back to its current state.
 }
 
+// Method to fetch user from /getUser
+- (void)fetchUserWithCompletion:(void (^)(NSString *userName, NSError *error))completion {
+    NSString *baseURL = @"http://39.107.59.4:8080"; // Replace with your server address
+    NSString *urlString = [NSString stringWithFormat:@"%@/getUser", baseURL];
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            completion(nil, error);
+            return;
+        }
+        if (data) {
+            NSError *jsonError;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            if (jsonError) {
+                completion(nil, jsonError);
+                return;
+            }
+            NSString *userName = json[@"name"]; // Adjust based on the API's response structure
+            completion(userName, nil);
+        } else {
+            completion(nil, [NSError errorWithDomain:@"ServerError" code:500 userInfo:@{NSLocalizedDescriptionKey: @"No data returned"}]);
+        }
+    }];
+    [task resume];
+}
+
 
 @end
