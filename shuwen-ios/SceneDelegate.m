@@ -25,7 +25,7 @@
 
             // 创建一个 UILabel 用于显示 "Hello"
             UILabel *helloLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
-            helloLabel.text = @"Hello";
+            helloLabel.text = @"shuwen";
             helloLabel.textAlignment = NSTextAlignmentCenter;
             helloLabel.center = self.window.center;
 
