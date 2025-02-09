@@ -8,6 +8,8 @@
 #import "SceneDelegate.h"
 
 @interface SceneDelegate ()
+@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVPlayerLayer *playerLayer;
 
 @end
 
@@ -36,7 +38,24 @@
             self.window.rootViewController = rootViewController;
             
             [self.window makeKeyAndVisible];
+            
+            [self loadAndPlayVideo];
         }
+}
+
+- (void)loadAndPlayVideo {
+    NSString *baseURL = @"http://39.107.59.4:8888"; // 替换为你的服务器地址
+    NSString *urlString = [NSString stringWithFormat:@"%@/getVideo", baseURL];
+    NSURL *videoURL = [NSURL URLWithString:urlString];
+
+    self.player = [AVPlayer playerWithURL:videoURL];
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+    self.playerLayer.frame = CGRectMake(0, 100, self.window.frame.size.width, 300); // 设置视频播放区域
+
+    UIViewController *rootViewController = self.window.rootViewController;
+    [rootViewController.view.layer addSublayer:self.playerLayer];
+
+    [self.player play];
 }
 
 
