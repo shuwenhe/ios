@@ -6,6 +6,7 @@
 //
 
 #import "SceneDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SceneDelegate ()
 @property (nonatomic, strong) AVPlayer *player;
@@ -24,7 +25,7 @@
             UIWindowScene *windowScene = (UIWindowScene *)scene;
             self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
             self.window.frame = windowScene.coordinateSpace.bounds;
-
+            
             // 创建一个 UILabel 用于显示 "Hello"
             UILabel *helloLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
             helloLabel.text = @"shuwen";
@@ -60,6 +61,8 @@
     UIViewController *rootViewController = self.window.rootViewController;
     [rootViewController.view.layer addSublayer:self.playerLayer];
 
+    // 监听播放器状态
+    [self.player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     [self.player play];
 }
 
