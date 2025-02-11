@@ -49,7 +49,7 @@
     NSURL *videoURL = [NSURL URLWithString:urlString];
 
     if (!videoURL) {
-           NSLog(@"无效的视频 URL: %@", urlString);
+           NSLog(@"Invalid video URL: %@", urlString);
            return;
     }
     
