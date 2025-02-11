@@ -44,10 +44,15 @@
 }
 
 - (void)loadAndPlayVideo {
-    NSString *baseURL = @"http://39.107.59.4:8888"; // 替换为你的服务器地址
+    NSString *baseURL = @"http://39.107.59.4:8080"; // 替换为你的服务器地址
     NSString *urlString = [NSString stringWithFormat:@"%@/getVideo", baseURL];
     NSURL *videoURL = [NSURL URLWithString:urlString];
 
+    if (!videoURL) {
+           NSLog(@"无效的视频 URL: %@", urlString);
+           return;
+    }
+    
     self.player = [AVPlayer playerWithURL:videoURL];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.frame = CGRectMake(0, 100, self.window.frame.size.width, 300); // 设置视频播放区域
