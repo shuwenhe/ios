@@ -45,7 +45,7 @@
 }
 
 - (void)loadAndPlayVideo {
-    NSString *baseURL = @"http://39.107.59.4:8080"; // 替换为你的服务器地址
+    NSString *baseURL = @"http://39.107.59.4:8080";
     NSString *urlString = [NSString stringWithFormat:@"%@/getVideo", baseURL];
     NSURL *videoURL = [NSURL URLWithString:urlString];
 
