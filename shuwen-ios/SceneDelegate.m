@@ -56,12 +56,11 @@
     
     self.player = [AVPlayer playerWithURL:videoURL];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    self.playerLayer.frame = CGRectMake(0, 100, self.window.frame.size.width, 300); // 设置视频播放区域
+    self.playerLayer.frame = CGRectMake(0, 100, self.window.frame.size.width, 300);
 
     UIViewController *rootViewController = self.window.rootViewController;
     [rootViewController.view.layer addSublayer:self.playerLayer];
 
-    // 监听播放器状态
     [self.player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     [self.player play];
 }
