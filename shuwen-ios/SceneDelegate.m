@@ -72,8 +72,10 @@
                         context:(void *)context {
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayer *player = (AVPlayer *)object;
-        AVPlayerItemStatus status = player.status;
+        //AVPlayerItemStatus status = player.status;
 
+        AVPlayerStatus status = player.status;
+        
         switch (status) {
             case AVPlayerItemStatusUnknown:
                 NSLog(@"Player status: Unknown");
