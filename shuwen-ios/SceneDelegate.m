@@ -65,6 +65,41 @@
     [self.player play];
 }
 
+// 观察 AVPlayer 的状态变化
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                       ofObject:(id)object
+                         change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                        context:(void *)context {
+    if ([keyPath isEqualToString:@"status"]) {
+        AVPlayer *player = (AVPlayer *)object;
+        AVPlayerItemStatus status = player.status;
+
+        switch (status) {
+            case AVPlayerItemStatusUnknown:
+                NSLog(@"Player status: Unknown");
+                break;
+            case AVPlayerItemStatusReadyToPlay:
+                NSLog(@"Player status: ReadyToPlay");
+                [self.player play];
+                break;
+            case AVPlayerItemStatusFailed:
+                NSLog(@"Player status: Failed");
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                               message:@"Failed to load the video."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+                break;
+           // default:
+             //   break;
+        }
+    }
+}
+
+// 在适当时移除 KVO 观察者
+- (void)dealloc {
+    [self.player removeObserver:self forKeyPath:@"status"];
+}
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
     // Called as the scene is being released by the system.
