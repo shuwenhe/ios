@@ -89,7 +89,13 @@
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                                message:@"Failed to load the video."
                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+               // UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * _Nonnull action) {
+                    // Handle the action if needed
+                    NSLog(@"OK button pressed");
+                }];
                 [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
                 break;
            // default:
