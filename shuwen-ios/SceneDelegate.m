@@ -60,7 +60,7 @@
 
     UIViewController *rootViewController = self.window.rootViewController;
     [rootViewController.view.layer addSublayer:self.playerLayer];
-
+    // 添加 KVO 观察者
     [self.player addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     [self.player play];
 }
